@@ -1,28 +1,35 @@
 /**
  * D!NG — GCH Support Intake  |  Google Apps Script Web App
  * ---------------------------------------------------------------
- * Receives submissions from index.html and:
- *   1) appends each response as a row in a Google Sheet, and
+ * Receives submissions from the intake form (index.html) and:
+ *   1) APPENDS each response as a new row in a dedicated tab, and
  *   2) saves any uploaded letter of support into a Drive folder,
- *      writing the file link back into the sheet row.
+ *      writing the file link back into the row.
  *
- * SETUP (full steps in GCH_Form_Setup_Guide.md):
- *   1) Make a Google Sheet -> paste its ID into SHEET_ID below.
- *   2) Make a Drive folder for letters -> paste its ID into FOLDER_ID.
+ * NON-DESTRUCTIVE BY DESIGN — existing tabs are never overwritten:
+ *   • It only ever calls insertSheet() (adds a NEW tab) and
+ *     appendRow() (adds a row BELOW existing rows).
+ *   • It never clears cells, never deletes or renames sheets, and
+ *     never writes to any tab other than TAB_NAME.
+ *   • If a tab named TAB_NAME already exists but was NOT created by
+ *     this script (its header row doesn't match), it writes to a new,
+ *     uniquely-named tab instead — so pre-existing data is always safe.
+ *
+ * SETUP (see GCH_Form_Setup_Guide.md):
+ *   1) SHEET_ID is set to your spreadsheet below (change if needed).
+ *   2) Create/choose a Drive folder for letters -> paste its ID into FOLDER_ID.
  *   3) Deploy > New deployment > type "Web app"
  *        - Execute as: Me
  *        - Who has access: Anyone
- *      Copy the Web app URL (ends in /exec) into the form's
- *      CONFIG.SUBMIT_ENDPOINT.
+ *      Copy the /exec URL into the form's CONFIG.SUBMIT_ENDPOINT.
  * ---------------------------------------------------------------
  */
 
-// ====== EDIT THESE TWO ======
-var SHEET_ID  = 'PASTE_GOOGLE_SHEET_ID_HERE';   // from the Sheet URL: /d/THIS_PART/edit
-var FOLDER_ID = 'PASTE_DRIVE_FOLDER_ID_HERE';   // from the folder URL: /folders/THIS_PART
-// ============================
-
-var SHEET_TAB = 'Responses';
+// ====== EDIT THESE ======
+var SHEET_ID  = '1_JuGOFh_XRv88lePR2ryKr1gfV-gkyNBUjJQ39JlWuY'; // your Google Sheet
+var TAB_NAME  = 'GCH_Intake_Responses';                          // dedicated tab (created if missing)
+var FOLDER_ID = 'PASTE_DRIVE_FOLDER_ID_HERE';                    // Drive folder for uploaded letters
+// ========================
 
 // Column header  ->  form field key.  '__letter_url' is the saved Drive link.
 var FIELDS = [
@@ -65,10 +72,53 @@ var FIELDS = [
   ['Anything else',        'anything_else']
 ];
 
+function headers_() {
+  return FIELDS.map(function (f) { return f[0]; });
+}
+
+/**
+ * Returns the tab to append to, creating it if needed.
+ * Guarantees no existing tab or data is ever overwritten.
+ */
+function getTargetSheet_(ss) {
+  var HEAD = headers_();
+  var sh = ss.getSheetByName(TAB_NAME);
+
+  // Case 1: our tab doesn't exist yet -> add a brand-new tab (others untouched).
+  if (!sh) {
+    sh = ss.insertSheet(TAB_NAME);
+    sh.appendRow(HEAD);
+    sh.setFrozenRows(1);
+    return sh;
+  }
+
+  // Case 2: tab exists but is empty -> safe to add the header row.
+  if (sh.getLastRow() === 0) {
+    sh.appendRow(HEAD);
+    sh.setFrozenRows(1);
+    return sh;
+  }
+
+  // Case 3: tab exists AND already has data.
+  //   If the header row matches ours, it's our tab -> reuse it (append only).
+  if (String(sh.getRange(1, 1).getValue()) === HEAD[0]) {
+    return sh;
+  }
+
+  //   Otherwise it's a pre-existing tab we must not disturb -> make a fresh,
+  //   uniquely-named tab so existing information is preserved.
+  var tz  = Session.getScriptTimeZone() || 'America/Indiana/Indianapolis';
+  var alt = TAB_NAME + '_' + Utilities.formatDate(new Date(), tz, 'yyyyMMdd_HHmmss');
+  var s2  = ss.insertSheet(alt);
+  s2.appendRow(HEAD);
+  s2.setFrozenRows(1);
+  return s2;
+}
+
 function doPost(e) {
   var lock = LockService.getScriptLock();
   try {
-    lock.waitLock(30000); // avoid two submissions colliding on the same row
+    lock.waitLock(30000); // avoid two submissions colliding
 
     var data = JSON.parse(e.postData.contents);
 
@@ -85,27 +135,22 @@ function doPost(e) {
       letterUrl  = folder.createFile(blob).getUrl();
     }
 
-    // 2) Append the response row (creating the header row on first run).
-    var ss = SpreadsheetApp.openById(SHEET_ID);
-    var sh = ss.getSheetByName(SHEET_TAB) || ss.insertSheet(SHEET_TAB);
-    if (sh.getLastRow() === 0) {
-      sh.appendRow(FIELDS.map(function (f) { return f[0]; }));
-      sh.setFrozenRows(1);
-    }
+    // 2) Append the response row to our dedicated tab (never overwrites anything).
+    var ss  = SpreadsheetApp.openById(SHEET_ID);
+    var sh  = getTargetSheet_(ss);
     var row = FIELDS.map(function (f) {
       if (f[1] === '__letter_url') return letterUrl;
       var v = data[f[1]];
       if (Array.isArray(v)) return v.join(', ');
       return (v === undefined || v === null) ? '' : v;
     });
-    sh.appendRow(row);
+    sh.appendRow(row); // appends BELOW existing rows
 
     return ContentService
       .createTextOutput(JSON.stringify({ ok: true }))
       .setMimeType(ContentService.MimeType.JSON);
 
   } catch (err) {
-    // Errors are logged; the form still shows its thank-you either way.
     return ContentService
       .createTextOutput(JSON.stringify({ ok: false, error: String(err) }))
       .setMimeType(ContentService.MimeType.JSON);
