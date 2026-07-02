@@ -36,7 +36,7 @@
 // ====== EDIT THESE ======
 var SHEET_ID  = '1_JuGOFh_XRv88lePR2ryKr1gfV-gkyNBUjJQ39JlWuY'; // your Google Sheet
 var TAB_NAME  = 'GCH_Intake_Responses';                          // dedicated tab (created if missing)
-var FOLDER_ID = 'PASTE_DRIVE_FOLDER_ID_HERE';                    // Drive folder for uploaded letters
+var FOLDER_ID = '1r2wUOYqLv9pRRkK3CNTSuC7gi0jUjWZE';                    // Drive folder for uploaded letters
 // ========================
 
 // Column header  ->  form field key.  '__letter_url' is the saved Drive link.
