@@ -134,8 +134,9 @@
         <select id="connection" name="connection">
           <option value="">Select…</option>
           <option>GCH community</option>
-          <option>Referred by someone</option>
+          <option>DEF network</option>
           <option>DIU network</option>
+          <option>Referral</option>
           <option>Other</option>
         </select></div>
       <div class="field cond" id="refBlock"><label for="referred_by">Who referred you?</label>
@@ -268,9 +269,8 @@
       <h2 class="sec-title">Provide a letter of support</h2>
       <div class="los-banner">
         A short letter on your organization's letterhead is one of the most valuable things you can offer —
-        it takes about 10 minutes. Download the template, fill the bracketed fields, sign, and email the
-        signed copy to <strong id="losEmail">los@dingmidwest.org</strong>. Earlier helps for the 9 July pitch;
-        anytime before ~30 July helps the final proposal.
+        it takes about 10 minutes. Download the template, fill the bracketed fields, sign, and upload the
+        signed copy below. Earlier helps for the 9 July pitch; anytime before ~30 July helps the final proposal.
         <br><a class="btn-dl" id="losTemplate" href="#" target="_blank" rel="noopener">Download the letter template</a>
       </div>
       <div class="field" data-los-req><label for="org_as_appears">Organization name as it should appear <span class="req">*</span></label>
@@ -291,11 +291,10 @@
       <div class="field"><label for="return_method">How will you return it?</label>
         <select id="return_method" name="return_method"><option value="">Select…</option>
           <option>Upload it here now</option>
-          <option>I'll email the signed PDF</option>
           <option>Need D!NG to pre-fill it for me</option></select></div>
       <div class="field"><label for="letter_file">Upload signed letter (PDF or DOCX, optional)</label>
         <input id="letter_file" type="file" accept=".pdf,.doc,.docx,image/*" />
-        <div class="hint">Optional — uploads go straight to our secure Drive folder. You can also email it to the address above. Max ~20&nbsp;MB.</div></div>
+        <div class="hint">Optional — uploads go straight to our secure Drive folder. Max ~20&nbsp;MB.</div></div>
     </section>
 
     <!-- SECTION F CONSENT -->
@@ -321,18 +320,15 @@
     <h2>Thank you for submitting your interest</h2>
     <p>Someone from D!NG will be in touch soon.</p>
     <div class="los-note" id="losThanks">
-      You offered a letter of support — if you haven't already, grab the template
-      <a id="losTemplate2" href="#" target="_blank" rel="noopener">here</a> and email the signed copy to
-      <strong id="losEmail2">los@dingmidwest.org</strong>.
+      Thanks for offering a letter of support. If you didn't attach it, grab the template
+      <a id="losTemplate2" href="#" target="_blank" rel="noopener">here</a> and someone from D!NG will follow up to collect the signed copy.
     </div>
   </div>
 </div>
 
 <script>
-  // ============ CONFIG — edit these three, then publish ============
+  // ============ CONFIG — edit these, then publish ============
   var CONFIG = {
-    // Where signed letters are emailed, shown in the letter section + thank-you.
-    LOS_EMAIL: "los@dingmidwest.org",
     // Letter-of-support template download. Use a Google Doc "…/copy" link or a hosted PDF/DOCX.
     LOS_TEMPLATE_URL: "#REPLACE_WITH_TEMPLATE_LINK",
     // Google Apps Script Web App URL (ends in /exec) that logs responses to a
@@ -343,8 +339,6 @@
   // ================================================================
 
   // Apply config to the DOM
-  document.getElementById("losEmail").textContent = CONFIG.LOS_EMAIL;
-  document.getElementById("losEmail2").textContent = CONFIG.LOS_EMAIL;
   document.getElementById("losTemplate").href = CONFIG.LOS_TEMPLATE_URL;
   document.getElementById("losTemplate2").href = CONFIG.LOS_TEMPLATE_URL;
 
@@ -352,7 +346,7 @@
 
   // Conditional: referred-by field
   document.getElementById("connection").addEventListener("change", function(){
-    document.getElementById("refBlock").classList.toggle("show", this.value === "Referred by someone");
+    document.getElementById("refBlock").classList.toggle("show", this.value === "Referral");
   });
 
   // Conditional: help-area blocks (Section C checkboxes reveal D/E blocks)
@@ -448,7 +442,7 @@
 
     if(file){
       if(file.size > 20 * 1024 * 1024){
-        alert('That file is larger than 20 MB. Please email the signed letter instead, or upload a smaller file.');
+        alert('That file is larger than 20 MB. Please upload a smaller or compressed file.');
         btn.disabled = false; btn.textContent = 'Submit my interest'; return;
       }
       var reader = new FileReader();
