@@ -25,6 +25,14 @@
  * ---------------------------------------------------------------
  */
 
+/* LIVE DEPLOYMENT (recorded 2 July 2026)
+ *   Web App URL  : https://script.google.com/macros/s/AKfycbyHe1rJZb-RD2dyJDFePS_7HqiSpMb3ixDMkXl0IwsoNfXgZGRroZWGPXPC27tl0eIxNQ/exec
+ *   Deployment ID: AKfycbyHe1rJZb-RD2dyJDFePS_7HqiSpMb3ixDMkXl0IwsoNfXgZGRroZWGPXPC27tl0eIxNQ
+ *   This URL is set in index.html -> CONFIG.SUBMIT_ENDPOINT.
+ *   On edits, redeploy the SAME deployment (Deploy > Manage deployments > Edit > New version)
+ *   so the URL and Deployment ID remain unchanged.
+ */
+
 // ====== EDIT THESE ======
 var SHEET_ID  = '1_JuGOFh_XRv88lePR2ryKr1gfV-gkyNBUjJQ39JlWuY'; // your Google Sheet
 var TAB_NAME  = 'GCH_Intake_Responses';                          // dedicated tab (created if missing)

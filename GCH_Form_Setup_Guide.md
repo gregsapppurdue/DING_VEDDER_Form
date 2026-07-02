@@ -2,6 +2,20 @@
 
 Wire the form to a Google Sheet (responses) and a Google Drive folder (uploaded letters) using a free Google Apps Script Web App. ~15 minutes, no coding.
 
+## Current deployment (recorded)
+
+| Item | Value |
+|------|-------|
+| **Web App URL** (`SUBMIT_ENDPOINT`) | https://script.google.com/macros/s/AKfycbyHe1rJZb-RD2dyJDFePS_7HqiSpMb3ixDMkXl0IwsoNfXgZGRroZWGPXPC27tl0eIxNQ/exec |
+| **Deployment ID** | `AKfycbyHe1rJZb-RD2dyJDFePS_7HqiSpMb3ixDMkXl0IwsoNfXgZGRroZWGPXPC27tl0eIxNQ` |
+| **Spreadsheet ID** | `1_JuGOFh_XRv88lePR2ryKr1gfV-gkyNBUjJQ39JlWuY` |
+| **Responses tab** | `GCH_Intake_Responses` (created automatically) |
+| **Deployed** | 2 July 2026 |
+
+> This Web App URL is already set in `index.html` (`CONFIG.SUBMIT_ENDPOINT`). When you edit the
+> script, redeploy the **same** deployment (Deploy → Manage deployments → ✏️ Edit → Version: New
+> version → Deploy) so the URL and Deployment ID stay the same.
+
 **Files involved**
 - `index.html` — the form people fill out.
 - `GCH_Form_AppsScript_Code.gs` — the script that receives submissions.

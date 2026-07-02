@@ -24,6 +24,16 @@ saved to a Google Drive folder via a free Google Apps Script Web App.
    - `SUBMIT_ENDPOINT` — the Apps Script Web App URL (ends in `/exec`)
 3. Host the HTML (see below) and share the link.
 
+## Deployment (recorded)
+
+| Item | Value |
+|------|-------|
+| Web App URL (`SUBMIT_ENDPOINT`) | https://script.google.com/macros/s/AKfycbyHe1rJZb-RD2dyJDFePS_7HqiSpMb3ixDMkXl0IwsoNfXgZGRroZWGPXPC27tl0eIxNQ/exec |
+| Deployment ID | `AKfycbyHe1rJZb-RD2dyJDFePS_7HqiSpMb3ixDMkXl0IwsoNfXgZGRroZWGPXPC27tl0eIxNQ` |
+| Spreadsheet ID | `1_JuGOFh_XRv88lePR2ryKr1gfV-gkyNBUjJQ39JlWuY` |
+| Responses tab | `GCH_Intake_Responses` |
+| Deployed | 2 July 2026 |
+
 ## Hosting (GitHub Pages)
 
 Enabled via **Settings → Pages → Deploy from branch → `main` / root**. The form will be served at:
