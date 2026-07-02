@@ -3,7 +3,7 @@
 Wire the form to a Google Sheet (responses) and a Google Drive folder (uploaded letters) using a free Google Apps Script Web App. ~15 minutes, no coding.
 
 **Files involved**
-- `GCH_Support_Intake_Form.html` — the form people fill out.
+- `index.html` — the form people fill out.
 - `GCH_Form_AppsScript_Code.gs` — the script that receives submissions.
 
 ---
@@ -41,7 +41,7 @@ You don't need to add headers to the Sheet — the script creates them on the fi
 
 ## Step 4 — Point the form at it
 
-1. Open `GCH_Support_Intake_Form.html` in a text editor.
+1. Open `index.html` in a text editor.
 2. Near the top of the `<script>` block, find the **CONFIG** section and set all three values:
    ```js
    LOS_EMAIL:        "los@dingmidwest.org",              // where emailed letters go

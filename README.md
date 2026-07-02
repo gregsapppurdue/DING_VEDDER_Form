@@ -9,7 +9,7 @@ saved to a Google Drive folder via a free Google Apps Script Web App.
 
 | File | What it is |
 |------|-----------|
-| `GCH_Support_Intake_Form.html` | The form. Single self-contained HTML file — no build, no dependencies. |
+| `index.html` | The form. Single self-contained HTML file — no build, no dependencies. |
 | `GCH_Form_AppsScript_Code.gs` | Google Apps Script Web App: logs responses to a Sheet, saves letters to Drive. |
 | `GCH_Form_Setup_Guide.md` | Step-by-step setup (~15 min, no coding). |
 
@@ -17,7 +17,7 @@ saved to a Google Drive folder via a free Google Apps Script Web App.
 
 1. Follow **`GCH_Form_Setup_Guide.md`** to create a Google Sheet + Drive folder and deploy
    the Apps Script as a Web App (Execute as: Me · Who has access: Anyone).
-2. In `GCH_Support_Intake_Form.html`, set the three values in the `CONFIG` block near the top
+2. In `index.html`, set the three values in the `CONFIG` block near the top
    of the `<script>`:
    - `LOS_EMAIL` — where emailed letters go
    - `LOS_TEMPLATE_URL` — the letter-of-support template link
@@ -26,13 +26,12 @@ saved to a Google Drive folder via a free Google Apps Script Web App.
 
 ## Hosting (GitHub Pages)
 
-Enable **Settings → Pages → Deploy from branch → `main` / root**. The form will be served at:
+Enabled via **Settings → Pages → Deploy from branch → `main` / root**. The form will be served at:
 
 ```
-https://gregsapppurdue.github.io/DING_VEDDER_Form/GCH_Support_Intake_Form.html
+https://gregsapppurdue.github.io/DING_VEDDER_Form/
 ```
 
-(Rename the file to `index.html` if you'd like it served at the repo root URL.)
 
 ## Security notes
 

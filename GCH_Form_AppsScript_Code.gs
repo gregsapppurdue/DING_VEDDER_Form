@@ -1,7 +1,7 @@
 /**
  * D!NG — GCH Support Intake  |  Google Apps Script Web App
  * ---------------------------------------------------------------
- * Receives submissions from GCH_Support_Intake_Form.html and:
+ * Receives submissions from index.html and:
  *   1) appends each response as a row in a Google Sheet, and
  *   2) saves any uploaded letter of support into a Drive folder,
  *      writing the file link back into the sheet row.
