@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Support the D!NG VEDDER Bid</title>
+<style>
+  :root{
+    --navy:#1F3864; --blue:#2E5A9C; --accent:#C55A11; --light:#D9E2F3;
+    --lighter:#EEF3FB; --green:#E2EFDA; --amber:#FFF2CC; --grey:#595959;
+    --line:#D5DCE8; --ok:#2E7D32; --err:#C62828;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#F4F6FA;color:#1a1a1a;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 64px;}
+  header.hero{background:var(--navy);color:#fff;padding:28px 20px 24px;border-radius:0 0 14px 14px;}
+  .hero-inner{max-width:720px;margin:0 auto;display:flex;gap:14px;align-items:center;}
+  .hero img{height:44px;width:auto;border-radius:6px;background:#fff;padding:3px;}
+  .brandmark{font-weight:800;font-size:26px;letter-spacing:.5px;}
+  .hero h1{font-size:20px;margin:2px 0 2px;font-weight:700;}
+  .hero p{margin:0;font-size:13.5px;color:#c9d6ee;}
+  .intro{background:var(--lighter);border-left:5px solid var(--blue);
+    padding:14px 16px;border-radius:8px;margin:22px 0 8px;font-size:14.5px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:18px 18px 6px;margin:16px 0;box-shadow:0 1px 3px rgba(20,40,80,.04);}
+  .sec-label{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+    color:var(--blue);margin:0 0 2px;}
+  .sec-title{font-size:17px;font-weight:700;color:var(--navy);margin:0 0 12px;}
+  .field{margin:0 0 14px;}
+  .field label,.grp legend{display:block;font-weight:600;font-size:14px;margin-bottom:5px;}
+  .req{color:var(--accent);font-weight:700;}
+  .hint{font-weight:400;color:var(--grey);font-size:12.5px;margin-top:2px;}
+  input[type=text],input[type=email],input[type=tel],input[type=url],select,textarea{
+    width:100%;padding:10px 12px;border:1px solid #C4CDDC;border-radius:8px;font-size:15px;
+    font-family:inherit;background:#fff;color:#1a1a1a;}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(46,90,156,.15);}
+  textarea{min-height:78px;resize:vertical;}
+  .grp{border:0;margin:0 0 8px;padding:0;}
+  .grp legend{padding:0;}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 11px;border:1px solid #D3DBE8;
+    border-radius:9px;margin-bottom:8px;cursor:pointer;transition:.12s;background:#fff;}
+  .opt:hover{border-color:var(--blue);background:var(--lighter);}
+  .opt input{margin-top:3px;width:17px;height:17px;accent-color:var(--blue);flex:none;}
+  .opt .ot{font-size:14.5px;font-weight:600;}
+  .opt .od{font-size:12.5px;color:var(--grey);font-weight:400;}
+  .cond{border-left:4px solid var(--light);background:#FBFCFE;border-radius:0 8px 8px 0;
+    padding:14px 16px 2px;margin:12px 0;display:none;}
+  .cond.show{display:block;animation:fade .18s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .cond h3{font-size:14px;color:var(--navy);margin:0 0 10px;}
+  .los-banner{background:var(--amber);border-left:5px solid var(--accent);border-radius:8px;
+    padding:13px 15px;font-size:13.5px;margin-bottom:14px;}
+  .btn-dl{display:inline-block;margin-top:8px;background:var(--accent);color:#fff;
+    text-decoration:none;font-weight:700;font-size:13.5px;padding:9px 15px;border-radius:8px;}
+  .btn-dl:hover{filter:brightness(1.07);}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:560px){.row2{grid-template-columns:1fr;}}
+  .submit{background:var(--navy);color:#fff;border:0;border-radius:10px;font-size:16px;
+    font-weight:700;padding:15px 22px;width:100%;cursor:pointer;margin-top:6px;}
+  .submit:hover{background:#16294a;}
+  .foot{font-size:12px;color:var(--grey);text-align:center;margin:18px 4px 0;}
+  .err-msg{color:var(--err);font-size:12.5px;margin-top:4px;display:none;}
+  .field.invalid input,.field.invalid select{border-color:var(--err);}
+  .field.invalid .err-msg{display:block;}
+  .banner-err{background:#FDECEA;border:1px solid #F5C6C0;color:#8a1c14;border-radius:8px;
+    padding:11px 14px;font-size:13.5px;margin:6px 0 0;display:none;}
+  /* thank you */
+  .thanks{display:none;text-align:center;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:44px 26px;margin:26px 0;}
+  .thanks .chk{width:66px;height:66px;border-radius:50%;background:var(--green);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+  .thanks .chk svg{width:34px;height:34px;stroke:var(--ok);}
+  .thanks h2{color:var(--navy);margin:0 0 8px;font-size:22px;}
+  .thanks p{color:#333;font-size:15px;margin:6px auto;max-width:440px;}
+  .thanks .los-note{background:var(--lighter);border-radius:8px;padding:12px 14px;
+    font-size:13.5px;margin-top:16px;display:none;}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <img src="DNG_Logo.png" alt="D!NG logo" onerror="this.style.display='none';document.getElementById('bm').style.display='inline';" />
+    <span class="brandmark" id="bm" style="display:none;">D!NG</span>
+    <div>
+      <h1>Support the D!NG VEDDER Bid</h1>
+      <p>Tell us where you can help — it takes about 90 seconds.</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="intro">
+    Thanks for raising your hand. D!NG is a neutral non-profit working to move dual-use biotech into
+    the warfighter's hands, and we've advanced to the pitch round of a federal CBRN-defense opportunity.
+    This quick form helps us route your support to the right place. Pick the lane(s) that fit —
+    everything beyond the basics is optional. <em>Shared in confidence under the usual rule.</em>
+  </div>
+
+  <form id="intakeForm" novalidate>
+    <div class="banner-err" id="bannerErr">Please complete the highlighted fields below.</div>
+
+    <!-- SECTION B -->
+    <section class="card">
+      <p class="sec-label">About you</p>
+      <h2 class="sec-title">Your details</h2>
+      <div class="row2">
+        <div class="field" data-req><label for="full_name">Full name <span class="req">*</span></label>
+          <input id="full_name" name="full_name" type="text" autocomplete="name" />
+          <div class="err-msg">Please enter your name.</div></div>
+        <div class="field" data-req data-email><label for="email">Email <span class="req">*</span></label>
+          <input id="email" name="email" type="email" autocomplete="email" />
+          <div class="err-msg">Please enter a valid email.</div></div>
+      </div>
+      <div class="field" data-req><label for="organization">Organization / affiliation <span class="req">*</span></label>
+        <input id="organization" name="organization" type="text" autocomplete="organization" />
+        <div class="err-msg">Please enter your organization.</div></div>
+      <div class="row2">
+        <div class="field"><label for="role">Role / title</label>
+          <input id="role" name="role" type="text" /></div>
+        <div class="field"><label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" /></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="linkedin">LinkedIn or website</label>
+          <input id="linkedin" name="linkedin" type="url" placeholder="https://" /></div>
+        <div class="field"><label for="location">Location (city / state or country)</label>
+          <input id="location" name="location" type="text" /></div>
+      </div>
+      <div class="field"><label for="connection">How are you connected to D!NG?</label>
+        <select id="connection" name="connection">
+          <option value="">Select…</option>
+          <option>GCH community</option>
+          <option>Referred by someone</option>
+          <option>DIU network</option>
+          <option>Other</option>
+        </select></div>
+      <div class="field cond" id="refBlock"><label for="referred_by">Who referred you?</label>
+        <input id="referred_by" name="referred_by" type="text" /></div>
+    </section>
+
+    <!-- SECTION C -->
+    <section class="card">
+      <p class="sec-label">Where can you help</p>
+      <h2 class="sec-title">Pick your lane(s) <span class="req">*</span></h2>
+      <fieldset class="grp" id="helpGrp">
+        <legend class="hint" style="margin-bottom:8px;">Check all that apply — each one opens a couple of quick, optional follow-ups.</legend>
+        <label class="opt"><input type="checkbox" name="help" value="Capital / investment" data-target="d_capital">
+          <span><span class="ot">Capital / investment</span><br><span class="od">You are, or you know, an investor interested in dual-use / CBRN / biotech deal flow.</span></span></label>
+        <label class="opt"><input type="checkbox" name="help" value="Company sourcing / deal flow" data-target="d_sourcing">
+          <span><span class="ot">Company sourcing / deal flow</span><br><span class="od">You know a strong dual-use biotech startup we should be tracking.</span></span></label>
+        <label class="opt"><input type="checkbox" name="help" value="Compute, AI/HPC, wet-lab or biomanufacturing" data-target="d_compute">
+          <span><span class="ot">Compute, AI/HPC, wet-lab or biomanufacturing</span><br><span class="od">Access to HPC/AI compute, wet-labs, or biomanufacturing we can tap.</span></span></label>
+        <label class="opt"><input type="checkbox" name="help" value="Subject-matter expertise" data-target="d_expertise">
+          <span><span class="ot">Subject-matter expertise</span><br><span class="od">Life sciences, CBRN, protein structure, AI/ML, acquisition — willing to lend a hand.</span></span></label>
+        <label class="opt"><input type="checkbox" name="help" value="Transition / customer connections" data-target="d_transition">
+          <span><span class="ot">Transition / customer connections</span><br><span class="od">Warm lines into programs of record or defense customers.</span></span></label>
+        <label class="opt"><input type="checkbox" name="help" value="Letter of support / named endorsement" data-target="d_letter">
+          <span><span class="ot">Letter of support / named endorsement</span><br><span class="od">Willing to provide a short letter on your letterhead, or let us name you.</span></span></label>
+        <label class="opt"><input type="checkbox" name="help" value="General advisory / other" data-target="d_general">
+          <span><span class="ot">General advisory / other</span><br><span class="od">Something else — tell us how you'd like to help.</span></span></label>
+      </fieldset>
+      <div class="err-msg" id="helpErr" style="display:none;">Please choose at least one way you can help.</div>
+
+      <!-- D1 CAPITAL -->
+      <div class="cond" id="d_capital">
+        <h3>Capital / investment</h3>
+        <div class="row2">
+          <div class="field"><label for="investor_type">Investor type</label>
+            <select id="investor_type" name="investor_type"><option value="">Select…</option>
+              <option>Angel</option><option>VC</option><option>Family office</option>
+              <option>Corporate / strategic</option><option>Other</option></select></div>
+          <div class="field"><label for="check_size">Typical check size</label>
+            <select id="check_size" name="check_size"><option value="">Select…</option>
+              <option>&lt;$100K</option><option>$100K–$500K</option><option>$500K–$2M</option>
+              <option>$2M+</option><option>Varies</option></select></div>
+        </div>
+        <div class="field"><label for="focus_areas">Focus areas / thesis</label>
+          <input id="focus_areas" name="focus_areas" type="text" placeholder="e.g., CBRN, biotech, dual-use, deep tech" /></div>
+        <div class="row2">
+          <div class="field"><label for="coinvest">Co-invest alongside Government dollars if D!NG is awarded?</label>
+            <select id="coinvest" name="coinvest"><option value="">Select…</option>
+              <option>Yes</option><option>Maybe</option><option>Not sure yet</option></select></div>
+          <div class="field"><label for="name_partner">May we name your firm as a capital partner in materials?</label>
+            <select id="name_partner" name="name_partner"><option value="">Select…</option>
+              <option>Yes</option><option>No</option><option>Ask me first</option></select></div>
+        </div>
+      </div>
+
+      <!-- D2 SOURCING -->
+      <div class="cond" id="d_sourcing">
+        <h3>Company sourcing / deal flow</h3>
+        <div class="field"><label for="company_name">Company name(s)</label>
+          <input id="company_name" name="company_name" type="text" /></div>
+        <div class="field"><label for="company_desc">One-line description</label>
+          <input id="company_desc" name="company_desc" type="text" /></div>
+        <div class="row2">
+          <div class="field"><label for="dual_use">Dual-use?</label>
+            <select id="dual_use" name="dual_use"><option value="">Select…</option>
+              <option>Yes</option><option>No</option><option>Unsure</option></select></div>
+          <div class="field"><label for="relationship">Your relationship + intro path</label>
+            <input id="relationship" name="relationship" type="text" /></div>
+        </div>
+      </div>
+
+      <!-- D3 COMPUTE -->
+      <div class="cond" id="d_compute">
+        <h3>Compute, AI/HPC, wet-lab or biomanufacturing</h3>
+        <fieldset class="grp"><legend class="hint" style="margin-bottom:6px;">Resource type (check all)</legend>
+          <label class="opt"><input type="checkbox" name="resource_type" value="HPC / AI compute"><span class="ot">HPC / AI compute</span></label>
+          <label class="opt"><input type="checkbox" name="resource_type" value="Wet-lab"><span class="ot">Wet-lab</span></label>
+          <label class="opt"><input type="checkbox" name="resource_type" value="Biomanufacturing"><span class="ot">Biomanufacturing</span></label>
+          <label class="opt"><input type="checkbox" name="resource_type" value="Secure IL5 hosting"><span class="ot">Secure IL5 hosting</span></label>
+          <label class="opt"><input type="checkbox" name="resource_type" value="Other"><span class="ot">Other</span></label>
+        </fieldset>
+        <div class="row2">
+          <div class="field"><label for="capacity">Capacity / availability</label>
+            <input id="capacity" name="capacity" type="text" placeholder="Rough scale, timing, backlog" /></div>
+          <div class="field"><label for="terms">Terms</label>
+            <select id="terms" name="terms"><option value="">Select…</option>
+              <option>Donated</option><option>Discounted</option><option>Purchasable</option><option>TBD</option></select></div>
+        </div>
+      </div>
+
+      <!-- D4 EXPERTISE -->
+      <div class="cond" id="d_expertise">
+        <h3>Subject-matter expertise</h3>
+        <fieldset class="grp"><legend class="hint" style="margin-bottom:6px;">Domain(s) (check all)</legend>
+          <label class="opt"><input type="checkbox" name="domains" value="CBRN"><span class="ot">CBRN</span></label>
+          <label class="opt"><input type="checkbox" name="domains" value="Life sciences"><span class="ot">Life sciences</span></label>
+          <label class="opt"><input type="checkbox" name="domains" value="Structural biology / protein structure"><span class="ot">Structural biology / protein structure</span></label>
+          <label class="opt"><input type="checkbox" name="domains" value="AI/ML"><span class="ot">AI/ML</span></label>
+          <label class="opt"><input type="checkbox" name="domains" value="Acquisition / GovCon"><span class="ot">Acquisition / GovCon</span></label>
+          <label class="opt"><input type="checkbox" name="domains" value="Other"><span class="ot">Other</span></label>
+        </fieldset>
+        <div class="row2">
+          <div class="field"><label for="sme_willing">Willing to provide talking points / act as an SME?</label>
+            <select id="sme_willing" name="sme_willing"><option value="">Select…</option>
+              <option>Yes</option><option>Maybe</option><option>Just connecting you to others</option></select></div>
+          <div class="field"><label for="bio_link">Short bio or link</label>
+            <input id="bio_link" name="bio_link" type="text" /></div>
+        </div>
+      </div>
+
+      <!-- D5 TRANSITION -->
+      <div class="cond" id="d_transition">
+        <h3>Transition / customer connections</h3>
+        <div class="field"><label for="programs">Programs / customers you can connect us to</label>
+          <input id="programs" name="programs" type="text" placeholder="Programs of record, agencies, primes" /></div>
+        <div class="field"><label for="connection_nature">Nature of the connection</label>
+          <input id="connection_nature" name="connection_nature" type="text" placeholder="Direct relationship, warm intro, etc." /></div>
+      </div>
+
+      <!-- D6 GENERAL -->
+      <div class="cond" id="d_general">
+        <h3>General advisory / other</h3>
+        <div class="field"><label for="how_help">How would you like to help?</label>
+          <textarea id="how_help" name="how_help"></textarea></div>
+      </div>
+    </section>
+
+    <!-- SECTION E LETTER -->
+    <section class="card cond" id="d_letter">
+      <p class="sec-label">Letter of support</p>
+      <h2 class="sec-title">Provide a letter of support</h2>
+      <div class="los-banner">
+        A short letter on your organization's letterhead is one of the most valuable things you can offer —
+        it takes about 10 minutes. Download the template, fill the bracketed fields, sign, and email the
+        signed copy to <strong id="losEmail">los@dingmidwest.org</strong>. Earlier helps for the 9 July pitch;
+        anytime before ~30 July helps the final proposal.
+        <br><a class="btn-dl" id="losTemplate" href="#" target="_blank" rel="noopener">Download the letter template</a>
+      </div>
+      <div class="field" data-los-req><label for="org_as_appears">Organization name as it should appear <span class="req">*</span></label>
+        <input id="org_as_appears" name="org_as_appears" type="text" />
+        <div class="err-msg">Please enter the organization name for the letter.</div></div>
+      <div class="field"><label for="signatory">Signatory name &amp; title</label>
+        <input id="signatory" name="signatory" type="text" /></div>
+      <div class="row2">
+        <div class="field"><label for="when_provide">When can you provide it?</label>
+          <select id="when_provide" name="when_provide"><option value="">Select…</option>
+            <option>By the 9 July pitch</option><option>By the ~30 July final proposal</option>
+            <option>Need more time</option></select></div>
+        <div class="field" data-los-req><label for="public_use">May we use your letter / name publicly? <span class="req">*</span></label>
+          <select id="public_use" name="public_use"><option value="">Select…</option>
+            <option>Yes</option><option>Yes, but review first</option><option>No (internal use only)</option></select>
+          <div class="err-msg">Please choose an option.</div></div>
+      </div>
+      <div class="field"><label for="return_method">How will you return it?</label>
+        <select id="return_method" name="return_method"><option value="">Select…</option>
+          <option>Upload it here now</option>
+          <option>I'll email the signed PDF</option>
+          <option>Need D!NG to pre-fill it for me</option></select></div>
+      <div class="field"><label for="letter_file">Upload signed letter (PDF or DOCX, optional)</label>
+        <input id="letter_file" type="file" accept=".pdf,.doc,.docx,image/*" />
+        <div class="hint">Optional — uploads go straight to our secure Drive folder. You can also email it to the address above. Max ~20&nbsp;MB.</div></div>
+    </section>
+
+    <!-- SECTION F CONSENT -->
+    <section class="card">
+      <p class="sec-label">Wrap-up</p>
+      <h2 class="sec-title">Consent</h2>
+      <div class="field" data-req><label for="consent">OK for D!NG to follow up with you about this? <span class="req">*</span></label>
+        <select id="consent" name="consent"><option value="">Select…</option>
+          <option>Yes</option><option>No</option></select>
+        <div class="err-msg">We need your OK to follow up.</div></div>
+      <div class="field"><label for="anything_else">Anything else, or questions for us?</label>
+        <textarea id="anything_else" name="anything_else"></textarea></div>
+    </section>
+
+    <button type="submit" class="submit">Submit my interest</button>
+    <p class="foot">Shared in confidence under the Chatham House Rule. Please don't include anything
+      proprietary or controlled (CUI) in this form.</p>
+  </form>
+
+  <!-- THANK YOU -->
+  <div class="thanks" id="thanks">
+    <div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+    <h2>Thank you for submitting your interest</h2>
+    <p>Someone from D!NG will be in touch soon.</p>
+    <div class="los-note" id="losThanks">
+      You offered a letter of support — if you haven't already, grab the template
+      <a id="losTemplate2" href="#" target="_blank" rel="noopener">here</a> and email the signed copy to
+      <strong id="losEmail2">los@dingmidwest.org</strong>.
+    </div>
+  </div>
+</div>
+
+<script>
+  // ============ CONFIG — edit these three, then publish ============
+  var CONFIG = {
+    // Where signed letters are emailed, shown in the letter section + thank-you.
+    LOS_EMAIL: "los@dingmidwest.org",
+    // Letter-of-support template download. Use a Google Doc "…/copy" link or a hosted PDF/DOCX.
+    LOS_TEMPLATE_URL: "#REPLACE_WITH_TEMPLATE_LINK",
+    // Google Apps Script Web App URL (ends in /exec) that logs responses to a
+    // Google Sheet and saves uploaded letters to a Drive folder. Leave "" to just
+    // show the thank-you screen (nothing is sent). See GCH_Form_Setup_Guide.md.
+    SUBMIT_ENDPOINT: ""
+  };
+  // ================================================================
+
+  // Apply config to the DOM
+  document.getElementById("losEmail").textContent = CONFIG.LOS_EMAIL;
+  document.getElementById("losEmail2").textContent = CONFIG.LOS_EMAIL;
+  document.getElementById("losTemplate").href = CONFIG.LOS_TEMPLATE_URL;
+  document.getElementById("losTemplate2").href = CONFIG.LOS_TEMPLATE_URL;
+
+  var form = document.getElementById("intakeForm");
+
+  // Conditional: referred-by field
+  document.getElementById("connection").addEventListener("change", function(){
+    document.getElementById("refBlock").classList.toggle("show", this.value === "Referred by someone");
+  });
+
+  // Conditional: help-area blocks (Section C checkboxes reveal D/E blocks)
+  document.querySelectorAll('#helpGrp input[type=checkbox]').forEach(function(cb){
+    cb.addEventListener("change", function(){
+      var el = document.getElementById(cb.getAttribute("data-target"));
+      if(el) el.classList.toggle("show", cb.checked);
+    });
+  });
+
+  function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  function clearErr(f){ f.classList.remove("invalid"); }
+
+  function validate(){
+    var ok = true, firstBad = null;
+    // required text/select
+    form.querySelectorAll('[data-req]').forEach(function(f){
+      var input = f.querySelector('input,select');
+      var val = (input.value || "").trim();
+      var bad = !val;
+      if(f.hasAttribute('data-email') && val && !isEmail(val)) bad = true;
+      f.classList.toggle('invalid', bad);
+      if(bad){ ok = false; firstBad = firstBad || f; }
+    });
+    // consent must be Yes
+    var consent = document.getElementById('consent');
+    if(consent.value === 'No'){
+      consent.closest('.field').classList.add('invalid'); ok = false;
+      firstBad = firstBad || consent.closest('.field');
+    }
+    // at least one help area
+    var anyHelp = !!form.querySelector('#helpGrp input:checked');
+    document.getElementById('helpErr').style.display = anyHelp ? 'none' : 'block';
+    if(!anyHelp){ ok = false; firstBad = firstBad || document.getElementById('helpGrp'); }
+    // letter block required fields (only if shown)
+    if(document.getElementById('d_letter').classList.contains('show')){
+      document.querySelectorAll('#d_letter [data-los-req]').forEach(function(f){
+        var input = f.querySelector('input,select');
+        var bad = !(input.value || "").trim();
+        f.classList.toggle('invalid', bad);
+        if(bad){ ok = false; firstBad = firstBad || f; }
+      });
+    }
+    document.getElementById('bannerErr').style.display = ok ? 'none' : 'block';
+    if(!ok && firstBad){ firstBad.scrollIntoView({behavior:'smooth', block:'center'}); }
+    return ok;
+  }
+
+  function collect(){
+    var data = {};
+    var fd = new FormData(form);
+    fd.forEach(function(v,k){
+      if(data[k] === undefined) data[k] = v;
+      else if(Array.isArray(data[k])) data[k].push(v);
+      else data[k] = [data[k], v];
+    });
+    data.submitted_at = new Date().toISOString();
+    return data;
+  }
+
+  function showThanks(letterChosen){
+    form.style.display = 'none';
+    document.querySelector('.intro').style.display = 'none';
+    document.getElementById('losThanks').style.display = letterChosen ? 'block' : 'none';
+    document.getElementById('thanks').style.display = 'block';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  form.addEventListener('input', function(e){
+    var f = e.target.closest('.field'); if(f) clearErr(f);
+  });
+
+  function send(data, letterChosen){
+    if(CONFIG.SUBMIT_ENDPOINT && CONFIG.SUBMIT_ENDPOINT.indexOf('http') === 0){
+      // Fire-and-forget. A default (text/plain) body avoids a CORS preflight that
+      // Apps Script can't answer; we show the thank-you regardless of the response.
+      fetch(CONFIG.SUBMIT_ENDPOINT, { method:'POST', body: JSON.stringify(data) }).catch(function(){});
+    } else {
+      console.log('D!NG intake (no endpoint configured):', data);
+    }
+    showThanks(letterChosen);
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!validate()) return;
+    var btn = form.querySelector('.submit');
+    btn.disabled = true; btn.textContent = 'Submitting…';
+    var letterChosen = !!form.querySelector('#helpGrp input[value="Letter of support / named endorsement"]:checked');
+    var fileInput = document.getElementById('letter_file');
+    var file = fileInput && fileInput.files ? fileInput.files[0] : null;
+
+    if(file){
+      if(file.size > 20 * 1024 * 1024){
+        alert('That file is larger than 20 MB. Please email the signed letter instead, or upload a smaller file.');
+        btn.disabled = false; btn.textContent = 'Submit my interest'; return;
+      }
+      var reader = new FileReader();
+      reader.onload = function(){
+        var data = collect();
+        data.letter_file_name = file.name;
+        data.letter_file_type = file.type || 'application/octet-stream';
+        data.letter_file_b64  = String(reader.result).split(',')[1] || '';
+        send(data, letterChosen);
+      };
+      reader.onerror = function(){ send(collect(), letterChosen); };
+      reader.readAsDataURL(file);
+    } else {
+      send(collect(), letterChosen);
+    }
+  });
+</script>
+</body>
+</html>
